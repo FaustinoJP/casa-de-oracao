@@ -62,6 +62,6 @@ export const contact = {
   youtube: 'https://www.youtube.com/@CasadeOra%C3%A7%C3%A3o',
   facebook: 'https://www.facebook.com/casadeoracao2',
   pastor: 'Pedro Antonio Guimarães',
-  addressLabel: 'Actualize aqui a morada exacta da igreja para mostrar a localização correcta.',
+  addressLabel: 'Luanda, Bairro popular, Rua de Ambrizete.',
   mapUrl: 'https://www.google.com/maps?q=Luanda&z=14&output=embed',
 };
