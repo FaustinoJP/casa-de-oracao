@@ -5,15 +5,33 @@ export default function HeroSection() {
     <section id="inicio" className="relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-br from-amber-50 via-white to-zinc-100" />
       <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-24">
-        <div className="flex flex-col justify-center">
-          <span className="mb-4 inline-flex w-fit rounded-full bg-amber-100 px-4 py-2 text-sm font-semibold text-amber-700">Bem-vindos à Casa de Oração</span>
-         <h1 className="text-4xl font-black leading-tight text-zinc-900 sm:text-5xl lg:text-6xl">Um espaço reservado para fortalecer a presença digital da igreja</h1>
-          <p className="mt-6 max-w-2xl text-base leading-8 text-zinc-600 sm:text-lg">Uma plataforma elegante, responsiva e preparada para apresentar a missão da igreja, divulgar actividades, testemunhos, agenda, eventos, disponibilidade pastoral e muito mais.</p>
-          <div className="mt-8 flex flex-wrap gap-4">
-            <a href="#quem-somos" className="rounded-full bg-zinc-900 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:-translate-y-0.5">Conhecer a Igreja</a>
-            <a href="#agenda" className="rounded-full border border-zinc-300 px-6 py-3 text-sm font-semibold text-zinc-700 transition hover:border-amber-500 hover:text-amber-600">Ver Agenda</a>
+       <div className="flex flex-col justify-center">
+         
+            <span className="mb-4 inline-flex w-fit rounded-full bg-amber-100 px-4 py-2 text-sm font-semibold text-amber-700">
+              Bem-vindos à Casa de Oração
+            </span>
+            <h1 className="font-heading text-4xl font-extrabold leading-[1.05] tracking-[-0.02em] text-zinc-900 sm:text-5xl lg:text-6xl">
+              Um espaço reservado para fortalecer a presença digital da igreja
+            </h1>
+            <p className="mt-6 max-w-2xl text-base leading-8 text-zinc-600 sm:text-lg">
+              Uma plataforma elegante, responsiva e preparada para apresentar a missão da igreja,
+              divulgar actividades, testemunhos, agenda, eventos, disponibilidade pastoral e muito mais.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <a
+                href="#quem-somos"
+                className="rounded-full bg-zinc-900 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:translate-y-[-1px]"
+              >
+                Conhecer a Igreja
+              </a>
+              <a
+                href="#agenda"
+                className="rounded-full border border-zinc-300 px-6 py-3 text-sm font-semibold text-zinc-700 transition hover:border-amber-500 hover:text-amber-600"
+              >
+                Ver Agenda
+              </a>
+            </div>
           </div>
-        </div>
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="overflow-hidden rounded-3xl bg-zinc-900 text-white shadow-2xl sm:col-span-2">
             <div className="relative h-72 w-full">
