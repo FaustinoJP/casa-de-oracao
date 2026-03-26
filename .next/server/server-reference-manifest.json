@@ -1,0 +1,54 @@
+{
+  "node": {
+    "220c408cd0b46d850bb65f4d009f4e9f740fbe41": {
+      "workers": {
+        "app/admin/login/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fworkspaces%2Fcasa-de-oracao%2Flib%2Factions.ts%22%2C%5B%22createAnnouncementAction%22%2C%22loginAction%22%2C%22logoutAction%22%2C%22createEventAction%22%2C%22createOfficialAction%22%2C%22createPostAction%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/admin/login/page": "action-browser"
+      }
+    },
+    "5dc935076d84af2f1ed997e6222be5142e398e9a": {
+      "workers": {
+        "app/admin/login/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fworkspaces%2Fcasa-de-oracao%2Flib%2Factions.ts%22%2C%5B%22createAnnouncementAction%22%2C%22loginAction%22%2C%22logoutAction%22%2C%22createEventAction%22%2C%22createOfficialAction%22%2C%22createPostAction%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/admin/login/page": "action-browser"
+      }
+    },
+    "99f2d346037d8625725d954081efa40d2ec2fd03": {
+      "workers": {
+        "app/admin/login/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fworkspaces%2Fcasa-de-oracao%2Flib%2Factions.ts%22%2C%5B%22createAnnouncementAction%22%2C%22loginAction%22%2C%22logoutAction%22%2C%22createEventAction%22%2C%22createOfficialAction%22%2C%22createPostAction%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/admin/login/page": "action-browser"
+      }
+    },
+    "d669c0fc0f2295e254070cdb3a7f715500d3770f": {
+      "workers": {
+        "app/admin/login/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fworkspaces%2Fcasa-de-oracao%2Flib%2Factions.ts%22%2C%5B%22createAnnouncementAction%22%2C%22loginAction%22%2C%22logoutAction%22%2C%22createEventAction%22%2C%22createOfficialAction%22%2C%22createPostAction%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/admin/login/page": "action-browser"
+      }
+    },
+    "ed894fc27bf408f36ef2563e8a8bc7c54a028190": {
+      "workers": {
+        "app/admin/login/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fworkspaces%2Fcasa-de-oracao%2Flib%2Factions.ts%22%2C%5B%22createAnnouncementAction%22%2C%22loginAction%22%2C%22logoutAction%22%2C%22createEventAction%22%2C%22createOfficialAction%22%2C%22createPostAction%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/admin/login/page": "action-browser"
+      }
+    },
+    "fb1f591908cd1fe529bec373d033bc4a32d53c5a": {
+      "workers": {
+        "app/admin/login/page": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fworkspaces%2Fcasa-de-oracao%2Flib%2Factions.ts%22%2C%5B%22createAnnouncementAction%22%2C%22loginAction%22%2C%22logoutAction%22%2C%22createEventAction%22%2C%22createOfficialAction%22%2C%22createPostAction%22%5D%5D%5D&__client_imported__=true!"
+      },
+      "layer": {
+        "app/admin/login/page": "action-browser"
+      }
+    }
+  },
+  "edge": {},
+  "encryptionKey": "JSbXaU5QDOvqM0vWPn3nlUp+1bFnY89qljzPBkXaFNc="
+}
