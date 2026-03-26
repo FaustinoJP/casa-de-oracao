@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
+import { AuthError } from 'next-auth';
 import { auth, signIn, signOut } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { canEdit, canManageOfficials, canPublish } from '@/lib/permissions';
@@ -14,14 +15,14 @@ const postSchema = z.object({
   slug: z.string().min(3),
   excerpt: z.string().optional(),
   content: z.string().min(10),
-  status: z.nativeEnum(ContentStatus)
+  status: z.nativeEnum(ContentStatus),
 });
 
 const announcementSchema = z.object({
   title: z.string().min(3),
   content: z.string().min(10),
   priority: z.coerce.number().int().min(0).max(10),
-  status: z.nativeEnum(ContentStatus)
+  status: z.nativeEnum(ContentStatus),
 });
 
 const eventSchema = z.object({
@@ -30,14 +31,14 @@ const eventSchema = z.object({
   location: z.string().optional(),
   startDate: z.string().min(1),
   endDate: z.string().optional(),
-  status: z.nativeEnum(EventStatus)
+  status: z.nativeEnum(EventStatus),
 });
 
 const officialSchema = z.object({
   name: z.string().min(3),
   email: z.string().email(),
   password: z.string().min(6),
-  role: z.nativeEnum(Role)
+  role: z.nativeEnum(Role),
 });
 
 async function requireSession() {
@@ -46,16 +47,30 @@ async function requireSession() {
   return session;
 }
 
-export async function loginAction(_: { error?: string } | undefined, formData: FormData) {
+export async function loginAction(
+  _: { error?: string } | undefined,
+  formData: FormData
+) {
+  const email = String(formData.get('email') ?? '');
+  const password = String(formData.get('password') ?? '');
+
   try {
     await signIn('credentials', {
-      email: String(formData.get('email') ?? ''),
-      password: String(formData.get('password') ?? ''),
-      redirectTo: '/admin'
+      email,
+      password,
+      redirectTo: '/admin',
     });
+
     return {};
-  } catch {
-    return { error: 'Credenciais inválidas.' };
+  } catch (error) {
+    if (error instanceof AuthError) {
+      if (error.type === 'CredentialsSignin') {
+        return { error: 'Credenciais inválidas.' };
+      }
+      return { error: 'Não foi possível iniciar sessão.' };
+    }
+
+    throw error;
   }
 }
 
@@ -63,7 +78,10 @@ export async function logoutAction() {
   await signOut({ redirectTo: '/admin/login' });
 }
 
-export async function createPostAction(_: { error?: string; success?: string } | undefined, formData: FormData) {
+export async function createPostAction(
+  _: { error?: string; success?: string } | undefined,
+  formData: FormData
+) {
   const session = await requireSession();
   if (!canPublish(session.user.role)) return { error: 'Sem permissão.' };
 
@@ -72,7 +90,7 @@ export async function createPostAction(_: { error?: string; success?: string } |
     slug: formData.get('slug'),
     excerpt: formData.get('excerpt') || undefined,
     content: formData.get('content'),
-    status: formData.get('status')
+    status: formData.get('status'),
   });
 
   if (!parsed.success) return { error: 'Preencha os campos correctamente.' };
@@ -86,11 +104,11 @@ export async function createPostAction(_: { error?: string; success?: string } |
       status: parsed.data.status,
       publishedAt: parsed.data.status === 'PUBLICADO' ? new Date() : null,
       author: {
-      connect: {
-        id: session.user.id,
+        connect: {
+          id: session.user.id,
+        },
       },
     },
-    }
   });
 
   revalidatePath('/admin');
@@ -98,7 +116,10 @@ export async function createPostAction(_: { error?: string; success?: string } |
   return { success: 'Publicação criada com sucesso.' };
 }
 
-export async function createAnnouncementAction(_: { error?: string; success?: string } | undefined, formData: FormData) {
+export async function createAnnouncementAction(
+  _: { error?: string; success?: string } | undefined,
+  formData: FormData
+) {
   const session = await requireSession();
   if (!canPublish(session.user.role)) return { error: 'Sem permissão.' };
 
@@ -106,24 +127,24 @@ export async function createAnnouncementAction(_: { error?: string; success?: st
     title: formData.get('title'),
     content: formData.get('content'),
     priority: formData.get('priority'),
-    status: formData.get('status')
+    status: formData.get('status'),
   });
 
   if (!parsed.success) return { error: 'Preencha os campos correctamente.' };
 
   await db.announcement.create({
     data: {
-     title: parsed.data.title,
+      title: parsed.data.title,
       content: parsed.data.content,
       priority: parsed.data.priority,
       status: parsed.data.status,
       publishedAt: parsed.data.status === 'PUBLICADO' ? new Date() : null,
       author: {
-      connect: {
-        id: session.user.id,
+        connect: {
+          id: session.user.id,
+        },
       },
     },
-    }
   });
 
   revalidatePath('/admin');
@@ -131,7 +152,10 @@ export async function createAnnouncementAction(_: { error?: string; success?: st
   return { success: 'Anúncio criado com sucesso.' };
 }
 
-export async function createEventAction(_: { error?: string; success?: string } | undefined, formData: FormData) {
+export async function createEventAction(
+  _: { error?: string; success?: string } | undefined,
+  formData: FormData
+) {
   const session = await requireSession();
   if (!canEdit(session.user.role)) return { error: 'Sem permissão.' };
 
@@ -141,7 +165,7 @@ export async function createEventAction(_: { error?: string; success?: string } 
     location: formData.get('location') || undefined,
     startDate: formData.get('startDate'),
     endDate: formData.get('endDate') || undefined,
-    status: formData.get('status')
+    status: formData.get('status'),
   });
 
   if (!parsed.success) return { error: 'Preencha os campos correctamente.' };
@@ -149,13 +173,17 @@ export async function createEventAction(_: { error?: string; success?: string } 
   await db.event.create({
     data: {
       title: parsed.data.title,
-      description: parsed.data.description,
-      location: parsed.data.location,
+      description: parsed.data.description ?? null,
+      location: parsed.data.location ?? null,
       startDate: new Date(parsed.data.startDate),
       endDate: parsed.data.endDate ? new Date(parsed.data.endDate) : null,
       status: parsed.data.status,
-      authorId: session.user.id
-    }
+      author: {
+        connect: {
+          id: session.user.id,
+        },
+      },
+    },
   });
 
   revalidatePath('/admin');
@@ -163,7 +191,10 @@ export async function createEventAction(_: { error?: string; success?: string } 
   return { success: 'Evento criado com sucesso.' };
 }
 
-export async function createOfficialAction(_: { error?: string; success?: string } | undefined, formData: FormData) {
+export async function createOfficialAction(
+  _: { error?: string; success?: string } | undefined,
+  formData: FormData
+) {
   const session = await requireSession();
   if (!canManageOfficials(session.user.role)) return { error: 'Sem permissão.' };
 
@@ -171,7 +202,7 @@ export async function createOfficialAction(_: { error?: string; success?: string
     name: formData.get('name'),
     email: formData.get('email'),
     password: formData.get('password'),
-    role: formData.get('role')
+    role: formData.get('role'),
   });
 
   if (!parsed.success) return { error: 'Preencha os campos correctamente.' };
@@ -183,8 +214,8 @@ export async function createOfficialAction(_: { error?: string; success?: string
       name: parsed.data.name,
       email: parsed.data.email,
       role: parsed.data.role,
-      passwordHash
-    }
+      passwordHash,
+    },
   });
 
   revalidatePath('/admin/oficiais');
