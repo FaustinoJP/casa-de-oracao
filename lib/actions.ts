@@ -79,9 +79,17 @@ export async function createPostAction(_: { error?: string; success?: string } |
 
   await db.post.create({
     data: {
-      ...parsed.data,
-      authorId: session.user.id,
-      publishedAt: parsed.data.status === 'PUBLICADO' ? new Date() : null
+      title: parsed.data.title,
+      slug: parsed.data.slug,
+      excerpt: parsed.data.excerpt ?? null,
+      content: parsed.data.content,
+      status: parsed.data.status,
+      publishedAt: parsed.data.status === 'PUBLICADO' ? new Date() : null,
+      author: {
+      connect: {
+        id: session.user.id,
+      },
+    },
     }
   });
 
@@ -105,9 +113,16 @@ export async function createAnnouncementAction(_: { error?: string; success?: st
 
   await db.announcement.create({
     data: {
-      ...parsed.data,
-      authorId: session.user.id,
-      publishedAt: parsed.data.status === 'PUBLICADO' ? new Date() : null
+     title: parsed.data.title,
+      content: parsed.data.content,
+      priority: parsed.data.priority,
+      status: parsed.data.status,
+      publishedAt: parsed.data.status === 'PUBLICADO' ? new Date() : null,
+      author: {
+      connect: {
+        id: session.user.id,
+      },
+    },
     }
   });
 

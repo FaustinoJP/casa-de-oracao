@@ -1,5 +1,5 @@
 import { ShieldCheck } from 'lucide-react';
-import LoginForm from '@/components/admin/LoginForm';
+import LoginForm from '../../../components/admin/LoginForm';
 
 export default function AdminLoginPage() {
   return (
